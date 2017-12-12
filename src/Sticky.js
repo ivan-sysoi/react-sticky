@@ -9,7 +9,6 @@ export default class Sticky extends Component {
     bottomOffset: PropTypes.number,
     relative: PropTypes.bool,
     children: PropTypes.func.isRequired,
-    className: PropTypes.string,
   }
 
   static defaultProps = {
@@ -18,7 +17,6 @@ export default class Sticky extends Component {
     bottomOffset: 0,
     disableCompensation: false,
     disableHardwareAcceleration: false,
-    className: null,
   }
 
   static contextTypes = {
@@ -96,20 +94,14 @@ export default class Sticky extends Component {
         distanceFromTop: this.state.distanceFromTop,
         distanceFromBottom: this.state.distanceFromBottom,
         calculatedHeight: this.state.calculatedHeight,
-        style: this.state.style
+        style: this.state.style,
       }),
-      { ref: content => { this.content = ReactDOM.findDOMNode(content); } }
+      { ref: content => { this.content = ReactDOM.findDOMNode(content); }, key: "content" }
     )
-    const containerProps = {};
-    if (this.props.className) {
-      containerProps.className = this.props.className;
-    }
 
-    return (
-      <div {...containerProps}>
-        <div ref={ placeholder => this.placeholder = placeholder } />
-        { element }
-      </div>
-    )
+    return [
+        <div key="placeholder" ref={ placeholder => this.placeholder = placeholder } />,
+        element,
+    ]
   }
 }
