@@ -102,7 +102,7 @@ export default class Sticky extends Component {
     )
     const containerProps = {};
     if (this.props.className) {
-      containerProps.className = className;
+      containerProps.className = this.props.className;
     }
 
     return (
